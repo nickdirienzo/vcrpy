@@ -331,7 +331,7 @@ def test_compat_with_requests__not_found(tmpdir):
 
         assert cassette.play_count == 1
 
-def test_compat_with_requests__crashes(tmpdir):
+def test_compat_with_requests__does_not_crash(tmpdir):
     """We want all clients to adhere to a single cassette spec so
         cassettes can be reused across clients. This test aims
         to ensure compatability between aiohttp and requests, such
