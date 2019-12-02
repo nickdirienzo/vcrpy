@@ -348,7 +348,7 @@ def test_compat_with_requests__crashes(tmpdir):
         assert len(cassette.requests) == 1
         assert len(cassette.responses) == 1
 
-        aiohttp_cassette_response = get(url)
+        aiohttp_cassette_response = get(url, output="raw")
 
         # Assert that we didn't create another recording with aiohttp
         # and reused the requests one.
