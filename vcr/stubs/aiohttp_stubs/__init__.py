@@ -68,11 +68,25 @@ def build_response(vcr_request, vcr_response, history):
     response.status = vcr_response["status"]["code"]
     response._body = vcr_response["body"].get("string", b"")
     response.reason = vcr_response["status"]["message"]
-    response._headers = CIMultiDictProxy(CIMultiDict(vcr_response["headers"]))
+    response._headers = CIMultiDictProxy(CIMultiDict(_parse_headers(vcr_response["headers"])))
     response._history = tuple(history)
 
     response.close()
     return response
+
+
+def _parse_headers(vcr_headers):
+    """To maintain compatability with aiohttp, we should drop lists of
+        length 1 to a single value in the key-value pair.
+    """
+    ret_dict = {}
+    for key, values in vcr_headers.items():
+        if len(values) == 1:
+            ret_dict[key] = values[0]
+        else:
+            ret_dict[key] = values
+
+    return ret_dict
 
 
 def _serialize_headers(headers):
@@ -80,10 +94,13 @@ def _serialize_headers(headers):
         objects forbid pickling:
 
         https://github.com/aio-libs/multidict/issues/340
+
+        To maintain compatability across other clients, we must record
+        the header values as a list.
     """
     # Mark strings as keys so 'istr' types don't show up in
     # the cassettes as comments.
-    return {str(k): v for k, v in headers.items()}
+    return {str(k): headers.getall(k) for k in headers.keys()}
 
 
 def play_responses(cassette, vcr_request):
