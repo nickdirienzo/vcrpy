@@ -5,6 +5,7 @@ import pytest
 
 asyncio = pytest.importorskip("asyncio")
 aiohttp = pytest.importorskip("aiohttp")
+requests = pytest.importorskip("requests")
 
 import vcr  # noqa: E402
 from .aiohttp_utils import aiohttp_app, aiohttp_request  # noqa: E402
@@ -302,3 +303,29 @@ def test_double_requests(tmpdir):
 
         # Now that we made both requests, we should have played both.
         assert cassette.play_count == 2
+
+
+def test_compat_with_requests(tmpdir):
+    """We want all clients to adhere to a single cassette spec so
+        cassettes can be reused across clients. This test aims
+        to ensure compatability between aiohttp and requests, such
+        that a cassette made with requests works with aiohttp and
+        vice-versa.
+    """
+    url = 'http://httpbin.org'
+
+    with vcr.use_cassette(str(tmpdir.join("compat.yaml"))):
+        requests_response = requests.get(url)
+
+    with vcr.use_cassette(str(tmpdir.join("compat.yaml"))) as cassette:
+        # Assert that we only have 1 request-response recording.
+        assert len(cassette.requests) == 1
+        assert len(cassette.responses) == 1
+
+        aiohttp_cassette_response = get(url)
+        assert cassette.play_count == 1
+
+        # Assert that we didn't create another recording with aiohttp
+        # and reused the requests one.
+        assert len(cassette.requests) == 1
+        assert len(cassette.responses) == 1
