@@ -1,0 +1,96 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.22.0
+    method: GET
+    uri: http://httpbin.org/1
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA02MPQ+CMBiEd37F6S71a2w6CBpNUInBGMcGXoRYC7ZFw7+3hMXxnnvu+CQ+R9k9
+        3WKfHROk101yiDCdMXZbRYzFWTwWq3CJXa2lYmx7moqAu9opEuv5GqfGYdd0uuBshAGvFuKP+hTw
+        VmQVwdC7I+uowPWS4CsttPfKwUOj4bxiyXzIhMChRN90IO3I+MHQDaOX1J1UqkerSFpCXlH+HEwD
+        25JStX5A+jtnesiHrHXIWSuCH7+KaarpAAAA
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Origin:
+      - '*'
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '198'
+      Content-Type:
+      - text/html
+      Date:
+      - Mon, 02 Dec 2019 00:11:31 GMT
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Server:
+      - nginx
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+    status:
+      code: 404
+      message: NOT FOUND
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: http://httpbin.org/1
+  response:
+    body:
+      string: '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+        <title>404 Not Found</title>
+
+        <h1>Not Found</h1>
+
+        <p>The requested URL was not found on the server.  If you entered the URL
+        manually please check your spelling and try again.</p>
+
+        '
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Origin:
+      - '*'
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '198'
+      Content-Type:
+      - text/html
+      Date:
+      - Mon, 02 Dec 2019 00:12:01 GMT
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Server:
+      - nginx
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+    status:
+      code: 404
+      message: NOT FOUND
+    url: http://httpbin.org/1
+version: 1
